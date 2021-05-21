@@ -41,12 +41,20 @@ def kruskal(G):
         sorted_edges.append(edge)
     # return sorted_edges
 
-
-    MST = {}
+    ds = DisJSet(num)
+    MST = []
     index = 0
     while len(MST) < num - 1:
         (v1, v2) = sorted_edges[index][0]
         w = sorted_edges[index][1]
+        index += 1
+
+        x = ds.find(v1)
+        y = ds.find(v2)
+        if x != y:
+            MST.append(((v1,v2), w))
+            ds.union(x,y)
+    return MST
 
 
 g1 = [[0, 9, 75, 0, 0],
